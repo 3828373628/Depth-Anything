@@ -6,7 +6,7 @@ Build a self-contained local Gradio application for Windows and macOS that conve
 
 ## Constraints
 
-- Project root: `E:\VideoTool\shenduzhuanhuan` on the current Windows machine.
+- Keep the project portable: runtime paths must be derived from the project directory rather than a fixed drive letter or absolute path.
 - Keep the Python virtual environment, model snapshots, caches, temporary files, uploads, and outputs under the project root where practical.
 - Use Hugging Face Transformers' native Depth Anything V2 support; do not copy source code from an existing Depth Anything project.
 - Prepare Small and Base model snapshots locally. Large remains an optional later download.

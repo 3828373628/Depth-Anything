@@ -5,7 +5,6 @@ title Depth Anything V2 Video Converter
 cd /d "%~dp0"
 
 set "PYTHON_EXE=%~dp0.venv\Scripts\python.exe"
-set "FFMPEG_PATH=E:\AI\Tool\ffmpeg\ffmpeg-9.0.1-essentials_build\bin\ffmpeg.exe"
 set "PYTHONUTF8=1"
 
 if not exist "%PYTHON_EXE%" (
@@ -17,14 +16,26 @@ if not exist "%PYTHON_EXE%" (
     exit /b 1
 )
 
-if not exist "%FFMPEG_PATH%" (
-    echo [ERROR] FFmpeg was not found:
+if defined FFMPEG_PATH (
+    if exist "%FFMPEG_PATH%" goto ffmpeg_ok
+    echo [ERROR] FFMPEG_PATH points to a missing file:
     echo %FFMPEG_PATH%
     echo.
-    echo Check that FFmpeg is still installed at the configured path.
     pause
     exit /b 1
 )
+
+where ffmpeg >nul 2>nul
+if errorlevel 1 (
+    echo [ERROR] FFmpeg was not found in PATH.
+    echo Install FFmpeg and add its bin folder to PATH,
+    echo or set FFMPEG_PATH to ffmpeg.exe before starting.
+    echo.
+    pause
+    exit /b 1
+)
+
+:ffmpeg_ok
 
 echo Starting Depth Anything V2 Video Converter...
 echo The local web page will open in your browser automatically.

@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Current project root is `E:\VideoTool\shenduzhuanhuan`.
+- The application must not depend on a fixed drive letter or absolute project path.
 - Small and Base are prepared locally; Large is not downloaded now.
 - Existing FFmpeg is reused.
 - CUDA Toolkit is not installed separately.
@@ -69,7 +69,7 @@
 **Interfaces:**
 - Consumes the finished application and creates a runnable local environment.
 
-- [ ] Create `.venv` from `E:\Software\Python313\python.exe`.
+- [ ] Create a project-local `.venv` from a supported Python interpreter.
 - [ ] Install a compatible CUDA PyTorch build and remaining requirements with caches under the project.
 - [ ] Download Small and Base model snapshots to `models/small` and `models/base`.
 - [ ] Confirm `torch.cuda.is_available()`, FFmpeg, and both local snapshots.

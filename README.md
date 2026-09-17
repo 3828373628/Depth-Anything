@@ -19,7 +19,7 @@
 ## 项目目录
 
 ```text
-E:\VideoTool\shenduzhuanhuan\
+Depth-Anything\
 ├─ app.py
 ├─ requirements.txt
 ├─ README.md
@@ -50,20 +50,22 @@ E:\VideoTool\shenduzhuanhuan\
 
 ## Windows 安装（NVIDIA GPU 推荐）
 
-当前这台机器实际验证使用 `E:\Software\Python313\python.exe`。建议直接用它创建项目虚拟环境，避免系统中其他 Python/Conda 版本被误用。
+建议先确认当前 `python` 是 Python 3.10 或更新版本；如果电脑上装了多个 Python，可用 `py -0p`（Windows）查看并选择合适版本。
 
 CMD：
 
 ```bat
-cd /d E:\VideoTool\shenduzhuanhuan
-E:\Software\Python313\python.exe -m venv .venv
+git clone https://github.com/3828373628/Depth-Anything.git
+cd /d Depth-Anything
+python -m venv .venv
 ```
 
 PowerShell：
 
 ```powershell
-Set-Location E:\VideoTool\shenduzhuanhuan
-E:\Software\Python313\python.exe -m venv .venv
+git clone https://github.com/3828373628/Depth-Anything.git
+Set-Location Depth-Anything
+python -m venv .venv
 ```
 
 安装 CUDA 12.8 版 PyTorch：
@@ -80,7 +82,7 @@ E:\Software\Python313\python.exe -m venv .venv
 .venv\Scripts\python.exe -m pip install --isolated --cache-dir cache\pip -r requirements.txt
 ```
 
-> 本机用户级 pip 配置包含全局 `target`，因此这里特意使用 `--isolated`，避免依赖被装到项目外。
+> 这里使用 `--isolated`，可减少用户级 pip 配置对项目安装位置和镜像设置的干扰。
 
 检查 CUDA：
 
@@ -106,18 +108,18 @@ macOS 不需要 CUDA。Apple Silicon 上 PyTorch 会使用 MPS；不支持时程
 
 ## FFmpeg
 
-程序要求 `ffmpeg` 可以通过 PATH 调用。也可以设置 `FFMPEG_PATH` 指向 FFmpeg 可执行文件。
+程序要求 `ffmpeg` 可以通过 PATH 调用。也可以设置 `FFMPEG_PATH` 指向你自己电脑上的 FFmpeg 可执行文件。
 
 Windows 示例：
 
 ```bat
-set FFMPEG_PATH=E:\AI\Tool\ffmpeg\ffmpeg-9.0.1-essentials_build\bin\ffmpeg.exe
+set FFMPEG_PATH=C:\path\to\ffmpeg.exe
 ```
 
 PowerShell 示例：
 
 ```powershell
-$env:FFMPEG_PATH = "E:\AI\Tool\ffmpeg\ffmpeg-9.0.1-essentials_build\bin\ffmpeg.exe"
+$env:FFMPEG_PATH = "C:\path\to\ffmpeg.exe"
 ```
 
 macOS 可使用 Homebrew：
@@ -160,14 +162,14 @@ macOS 把 `.venv\Scripts\python.exe` 改成 `./.venv/bin/python`。
 Windows：
 
 ```bat
-cd /d E:\VideoTool\shenduzhuanhuan
+cd /d C:\path\to\Depth-Anything
 .venv\Scripts\python.exe app.py
 ```
 
 PowerShell：
 
 ```powershell
-Set-Location E:\VideoTool\shenduzhuanhuan
+Set-Location C:\path\to\Depth-Anything
 .\.venv\Scripts\python.exe app.py
 ```
 
@@ -189,3 +191,13 @@ cd /path/to/shenduzhuanhuan
 输入视频按 OpenCV 报告的 FPS 编码为恒定帧率（CFR）输出。普通 CFR 视频会保持正常时长；对于手机等设备生成的可变帧率（VFR）视频，程序不会保留每一帧原始时间戳，因此极端 VFR 素材可能出现轻微节奏差异。如果必须逐帧保留 VFR 时间戳，需要改为时间戳感知的 FFmpeg 解码/编码流程。
 
 Base 模型比 Small 更慢、显存占用更高，但通常细节更好。当前项目不预下载 Large 模型。
+
+## 第一版本备份
+
+为防止后续修改或误删，最初仅针对当前 Windows 机器整理的本地版本已单独保留在 GitHub：
+
+- 分支：`v1-local-windows`
+- 标签：`v1.0-local-windows`
+- 原始提交：`a5df45a`
+
+`main` 分支从该版本继续改为通用路径，不会覆盖这个备份点。
